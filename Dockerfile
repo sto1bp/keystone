@@ -32,8 +32,8 @@ RUN set -x && \
       python3-dev \
       libffi-dev \
       # libressl-dev \
-      openssl-dev \
-      cryptography \
+      # openssl-dev \
+      # cryptography \
       musl-dev \
       lld \
       rust \

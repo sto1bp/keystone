@@ -24,6 +24,8 @@ ENV PIP_DEFAULT_TIMEOUT=100 \
 WORKDIR $PYSETUP_PATH
 COPY poetry.lock pyproject.toml ./
 
+RUN apk upgrade --no-cache
+
 RUN set -x && \
     apk add --no-cache --virtual .build-deps \
       postgresql-dev \
@@ -32,9 +34,7 @@ RUN set -x && \
       curl \
       python3-dev \
       libffi-dev \
-      libressl-dev \
-      # openssl-dev \
-      # cryptography \
+      # libressl-dev \
       musl-dev \
       lld \
       rust \

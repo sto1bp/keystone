@@ -52,8 +52,8 @@ RUN set -x && \
     apk add --no-cache rust libpq
 
 RUN addgroup -S apigroup && \
-    adduser -S apiuser -G apigroup
-USER apiuser
+    adduser -S fbiuser -G apigroup
+USER fbiuser
 
 WORKDIR $PYSETUP_PATH
 COPY --from=build $POETRY_HOME $POETRY_HOME

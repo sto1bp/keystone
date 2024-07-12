@@ -19,7 +19,7 @@ FROM base as build
 ENV PIP_DEFAULT_TIMEOUT=100 \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
     PIP_NO_CACHE_DIR=1 \
-    POETRY_VERSION=1.1.13
+    POETRY_VERSION=1.8.3
 
 WORKDIR $PYSETUP_PATH
 COPY poetry.lock pyproject.toml ./
@@ -60,8 +60,6 @@ COPY --from=build $POETRY_HOME $POETRY_HOME
 COPY --from=build $PYSETUP_PATH $PYSETUP_PATH
 
 COPY ./keystone_scim /$PYSETUP_PATH/keystone_scim
-
-RUN poetry update
 
 EXPOSE 5001
 CMD ["poetry", "run", "keystone-scim"]

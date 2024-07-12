@@ -1,7 +1,7 @@
 # ------------------------
 # Python base stage:
 # ------------------------
-FROM python:3.9.13-alpine3.16 as base
+FROM python:3.10.14-alpine3.20 as base
 
 ENV PYTHONFAULTHANDLER=1 \
     PYTHONUNBUFFERED=1 \

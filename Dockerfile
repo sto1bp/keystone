@@ -26,7 +26,6 @@ COPY poetry.lock pyproject.toml ./
 
 RUN set -x && \
     apk add --no-cache --virtual .build-deps \
-      postgresql-dev \
       build-base \
       gcc \
       curl \
@@ -38,6 +37,7 @@ RUN set -x && \
       musl-dev \
       lld \
       rust \
+      postgresql-dev \
       cargo && \
     curl -sSL https://install.python-poetry.org | python3 - && \
     poetry install --no-dev && \

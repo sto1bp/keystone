@@ -22,15 +22,15 @@ jobs:
     - name: Log in to registry
       uses: docker/login-action@v2
       with:
-        registry: https://ghcr.io/
-        username: ${{ secrets.AzureAppService_ContainerUsername_e6371a3167974da3a8431bb085480d44 }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_da987b814f6d48e686ba845bf1d6734b }}
+        registry: https://ghcr.io//
+        username: ${{ secrets.AzureAppService_ContainerUsername_bbf5c00f53534f909055e29147f59519 }}
+        password: ${{ secrets.AzureAppService_ContainerPassword_02edf7aa6b9c427b8dcedb4c8da0e069 }}
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: ghcr.io/${{ secrets.AzureAppService_ContainerUsername_e6371a3167974da3a8431bb085480d44 }}/keystone-scim/keystone:${{ github.sha }}
+        tags: ghcr.io//${{ secrets.AzureAppService_ContainerUsername_bbf5c00f53534f909055e29147f59519 }}/keystone-scim/keystone:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
@@ -47,5 +47,5 @@ jobs:
       with:
         app-name: 'xbi-as-access-manager-scim-d-we-005'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_b5bc86e4039e48ed8004ba8ab93697aa }}
-        images: 'ghcr.io/${{ secrets.AzureAppService_ContainerUsername_e6371a3167974da3a8431bb085480d44 }}/keystone-scim/keystone:${{ github.sha }}'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_ff6c270010e64a218128d68f31c7a840 }}
+        images: 'ghcr.io//${{ secrets.AzureAppService_ContainerUsername_bbf5c00f53534f909055e29147f59519 }}/keystone-scim/keystone:${{ github.sha }}'

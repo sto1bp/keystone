@@ -61,5 +61,7 @@ COPY --from=build $PYSETUP_PATH $PYSETUP_PATH
 
 COPY ./keystone_scim /$PYSETUP_PATH/keystone_scim
 
+RUN poetry update
+
 EXPOSE 5001
 CMD ["poetry", "run", "keystone-scim"]

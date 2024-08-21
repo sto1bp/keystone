@@ -30,7 +30,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: ghcr.io//${{ secrets.AzureAppService_ContainerUsername_aba294c34d394c82b142a2dab51b975b }}/sto1bp/keystone:${{ github.sha }}
+        tags: ghcr.io/sto1bp/keystone:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:

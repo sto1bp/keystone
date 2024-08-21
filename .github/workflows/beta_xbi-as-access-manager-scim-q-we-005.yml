@@ -87,6 +87,5 @@ jobs:
         uses: azure/webapps-deploy@v3
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          # publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          publish-profile: ${{ secrets.AzureAppService_PublishProfile_52fa22436597450395f2f09cb845fdc2 }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFIL_BETA }}
           images: 'ghcr.io/${{ env.REPO }}:${{ github.sha }}'

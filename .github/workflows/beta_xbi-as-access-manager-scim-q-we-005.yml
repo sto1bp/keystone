@@ -1,0 +1,51 @@
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
+name: Build and deploy container app to Azure Web App - xbi-as-access-manager-scim-q-we-005
+
+on:
+  push:
+    branches:
+      - beta
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: 'ubuntu-latest'
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    - name: Log in to registry
+      uses: docker/login-action@v2
+      with:
+        registry: https://ghcr.io//
+        username: ${{ secrets.AzureAppService_ContainerUsername_9147e4c3778a472fa99e2e2fb2bd4bcb }}
+        password: ${{ secrets.AzureAppService_ContainerPassword_44203f2b2cd645ce81da66e1fa7943b5 }}
+
+    - name: Build and push container image to registry
+      uses: docker/build-push-action@v3
+      with:
+        push: true
+        tags: ghcr.io//${{ secrets.AzureAppService_ContainerUsername_9147e4c3778a472fa99e2e2fb2bd4bcb }}/mcr.microsoft.com/dotnet/samples:${{ github.sha }}
+        file: ./Dockerfile
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: 'production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+    steps:
+    - name: Deploy to Azure Web App
+      id: deploy-to-webapp
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'xbi-as-access-manager-scim-q-we-005'
+        slot-name: 'production'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_496207309afc4ca78d3fe983a1a4b16b }}
+        images: 'ghcr.io//${{ secrets.AzureAppService_ContainerUsername_9147e4c3778a472fa99e2e2fb2bd4bcb }}/mcr.microsoft.com/dotnet/samples:${{ github.sha }}'

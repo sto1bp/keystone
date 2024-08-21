@@ -32,7 +32,7 @@ env:
 on:
   push:
     branches: 
-      - dev # [ $default-branch ]
+      - beta # [ $default-branch ]
   workflow_dispatch:
 
 permissions:
@@ -87,5 +87,6 @@ jobs:
         uses: azure/webapps-deploy@v3
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          slot-name: 'production'
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFIL_BETA }}
           images: 'ghcr.io/${{ env.REPO }}:${{ github.sha }}'

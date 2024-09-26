@@ -43,4 +43,17 @@ user_emails_tbl = """
     );
 """
 
-ddl_queries = [users_tbl, groups_tbl, users_groups_tbl, user_emails_tbl]
+request_logs_tbl = """
+    CREATE TABLE IF NOT EXISTS `request_logs` (
+        `id` VARCHAR(256) PRIMARY KEY,
+        `timestamp` VARCHAR(256) NOT NULL,
+        `method` VARCHAR(256) NULL,
+        `path` VARCHAR(256) NULL,
+        `headers` VARCHAR(1024) NULL,
+        `query_params` VARCHAR(256) NULL,
+        `body` TEXT NULL
+    );
+"""
+
+ddl_queries = [users_tbl, groups_tbl, users_groups_tbl, user_emails_tbl, request_logs_tbl]
+

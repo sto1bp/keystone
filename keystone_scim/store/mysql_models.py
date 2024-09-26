@@ -43,3 +43,14 @@ user_emails = sa.Table(
     sa.Column("value", sa.VARCHAR),
     sa.Column("type", sa.VARCHAR)
 )
+
+request_logs = sa.Table(
+    "request_logs", metadata,
+    sa.Column("id", sa.VARCHAR, primary_key=True),
+    sa.Column("timestamp", sa.VARCHAR),
+    sa.Column("method", sa.VARCHAR),
+    sa.Column("path", sa.VARCHAR),
+    sa.Column("headers", sa.VARCHAR),
+    sa.Column("query_params", sa.VARCHAR),
+    sa.Column("body", sa.VARCHAR)
+)

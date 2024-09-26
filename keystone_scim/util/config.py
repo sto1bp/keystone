@@ -30,7 +30,7 @@ SCHEMA = Schema({
         }),
         Optional("mysql", default=None): Schema({
             Optional("host"): str,
-            Optional("port", default=5432): int,
+            Optional("port", default=3306): int,
             Optional("ssl", default="require"): str,
             Optional("user"): str,
             Optional("password"): str,

@@ -486,6 +486,25 @@ class MySqlStore(RDBMSStore):
                 res.append({"value": row.userId})
         return res
 
+    async def create_request_log(self, resource: Dict) -> Dict:
+        group_id = resource.get("id") or str(uuid.uuid4())
+        insert_request_log = insert(tbl.request_logs).values(
+            id = group_id,
+            timestamp = resource.get("timestamp"),
+            method = resource.get("method"),
+            path = resource.get("path"),
+            headers = resource.get("headers"),
+            query_params = resource.get("query_params"),
+            body = resource.get("body")
+        )
+        LOGGER.info(str(resource))
+        engine = await self.get_engine()
+        async with engine.acquire() as conn:
+            async with conn.begin() as transaction:
+                _ = await conn.execute(insert_request_log)
+                await transaction.commit()
+        return
+
     async def clean_up_store(self) -> None:
         engine = await self.get_engine()
         async with engine.acquire() as conn:

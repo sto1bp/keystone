@@ -30,6 +30,7 @@ from aiohttp_apispec import AiohttpApiSpec
 from keystone_scim.rest import get_error_handling_mw
 from keystone_scim.rest.user import get_user_routes
 from keystone_scim.rest.group import get_group_routes
+from keystone_scim.rest.request_log import save_request
 from keystone_scim.security.authn import bearer_token_check
 
 
@@ -61,6 +62,7 @@ async def serve(port: int = 5001):
     scim_api.middlewares.append(bearer_token_check)
     scim_api.add_routes(get_user_routes())
     scim_api.add_routes(get_group_routes())
+    scim_api.middlewares.append(save_request) 
 
     # Append SCIM 2.0 API to root web app:
     app = web.Application()

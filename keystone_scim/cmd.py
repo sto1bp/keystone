@@ -60,6 +60,7 @@ async def serve(port: int = 5001):
     scim_api = web.Application()
     scim_api.middlewares.append(error_handling_mw)
     scim_api.middlewares.append(bearer_token_check)
+    scim_api.add_routes([web.get("", root)])
     scim_api.add_routes(get_user_routes())
     scim_api.add_routes(get_group_routes())
     scim_api.middlewares.append(save_request) 

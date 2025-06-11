@@ -4,6 +4,9 @@ version = "0.2.1"
 description = "A SCIM 2.0 Provisioning API"
 authors = ["Yuval Herziger <yherziger@microsoft.com>"]
 license = "MIT"
+packages = [
+    { include = "keystone_scim" }
+]
 
 [tool.poetry.scripts]
 keystone-scim = "keystone_scim.cmd:run"

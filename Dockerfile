@@ -54,7 +54,7 @@ RUN set -x && \
 #     poetry run python -m compileall -q /$PYSETUP_PATH/keystone_scim
 
 RUN poetry cache clear . --all && \
-    poetry update --lock && \
+    # poetry update --lock && \
     poetry install --with dev --sync
     
 

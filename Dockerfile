@@ -55,7 +55,7 @@ RUN set -x && \
 
 RUN poetry config virtualenvs.create false && \
     poetry lock && \
-    poetry install --with dev
+    poetry install
     
 
 # ------------------------
@@ -73,6 +73,8 @@ USER fbiuser
 WORKDIR $PYSETUP_PATH
 COPY --from=build $POETRY_HOME $POETRY_HOME
 COPY --from=build $PYSETUP_PATH $PYSETUP_PATH
+
+COPY ./keystone_scim /$PYSETUP_PATH/keystone_scim
 
 EXPOSE 5001
 CMD ["poetry", "run", "keystone-scim"]

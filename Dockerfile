@@ -23,6 +23,7 @@ ENV PIP_DEFAULT_TIMEOUT=100 \
 
 WORKDIR $PYSETUP_PATH
 COPY poetry.lock pyproject.toml ./
+COPY ./keystone_scim /$PYSETUP_PATH/keystone_scim
 
 RUN apk upgrade --no-cache
 
@@ -46,10 +47,11 @@ RUN set -x && \
     apk del --no-cache .build-deps
 
 RUN poetry cache clear . --all && \
+    poetry run python -m compileall -q /$PYSETUP_PATH/keystone_scim
     poetry update --lock && \
     poetry install --with dev --sync && \
     poetry config virtualenvs.create false && \
-    poetry run python -m compileall -q /$PYSETUP_PATH/keystone_scim
+    
 
 # ------------------------
 # Runtime stage:
@@ -66,8 +68,6 @@ USER fbiuser
 WORKDIR $PYSETUP_PATH
 COPY --from=build $POETRY_HOME $POETRY_HOME
 COPY --from=build $PYSETUP_PATH $PYSETUP_PATH
-
-COPY ./keystone_scim /$PYSETUP_PATH/keystone_scim
 
 EXPOSE 5001
 CMD ["poetry", "run", "keystone-scim"]

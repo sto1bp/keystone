@@ -53,9 +53,9 @@ RUN set -x && \
 #     poetry config virtualenvs.create false && \
 #     poetry run python -m compileall -q /$PYSETUP_PATH/keystone_scim
 
-RUN poetry cache clear . --all && \
-    # poetry update --lock && \
-    poetry install --with dev --sync
+RUN poetry config virtualenvs.create false && \
+    poetry lock && \
+    poetry install --with dev
     
 
 # ------------------------

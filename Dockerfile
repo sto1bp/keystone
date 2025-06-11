@@ -63,7 +63,7 @@ COPY --from=build $PYSETUP_PATH $PYSETUP_PATH
 
 COPY ./keystone_scim /$PYSETUP_PATH/keystone_scim
 
-RUN poetry install --no-dev --no-root && \
+RUN poetry install --without dev --no-root && \
     poetry config virtualenvs.create false && \
     poetry run python -m compileall -q /$PYSETUP_PATH/keystone_scim
 

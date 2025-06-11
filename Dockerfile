@@ -1,7 +1,7 @@
 # ------------------------
 # Python base stage:
 # ------------------------
-FROM python:3.12.10-alpine3.22 as base
+FROM python:3.11.13-alpine3.22 as base
 
 ENV PYTHONFAULTHANDLER=1 \
     PYTHONUNBUFFERED=1 \
@@ -45,6 +45,12 @@ RUN set -x && \
     # poetry install && \
     apk del --no-cache .build-deps
 
+RUN poetry cache clear . --all && \
+    poetry update --lock && \
+    poetry install --with dev --sync && \
+    poetry config virtualenvs.create false && \
+    poetry run python -m compileall -q /$PYSETUP_PATH/keystone_scim
+
 # ------------------------
 # Runtime stage:
 # ------------------------
@@ -62,10 +68,6 @@ COPY --from=build $POETRY_HOME $POETRY_HOME
 COPY --from=build $PYSETUP_PATH $PYSETUP_PATH
 
 COPY ./keystone_scim /$PYSETUP_PATH/keystone_scim
-
-RUN poetry install --without dev --no-root && \
-    poetry config virtualenvs.create false && \
-    poetry run python -m compileall -q /$PYSETUP_PATH/keystone_scim
 
 EXPOSE 5001
 CMD ["poetry", "run", "keystone-scim"]

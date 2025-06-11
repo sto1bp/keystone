@@ -1,7 +1,7 @@
 # ------------------------
 # Python base stage:
 # ------------------------
-FROM python:3.10-alpine3.22 as base
+FROM python:3.11-alpine3.22 as base
 
 ENV PYTHONFAULTHANDLER=1 \
     PYTHONUNBUFFERED=1 \
@@ -47,11 +47,13 @@ RUN set -x && \
     # poetry install && \
     apk del --no-cache .build-deps
 
-RUN poetry cache clear . --all && \
-    poetry update --lock && \
-    poetry install --with dev --sync && \
-    poetry config virtualenvs.create false && \
-    poetry run python -m compileall -q /$PYSETUP_PATH/keystone_scim
+# RUN poetry cache clear . --all && \
+#     poetry update --lock && \
+#     poetry install --with dev --sync && \
+#     poetry config virtualenvs.create false && \
+#     poetry run python -m compileall -q /$PYSETUP_PATH/keystone_scim
+
+RUN poetry install --with dev --sync
     
 
 # ------------------------

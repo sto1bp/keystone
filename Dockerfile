@@ -47,10 +47,10 @@ RUN set -x && \
     apk del --no-cache .build-deps
 
 RUN poetry cache clear . --all && \
-    poetry run python -m compileall -q /$PYSETUP_PATH/keystone_scim
     poetry update --lock && \
     poetry install --with dev --sync && \
     poetry config virtualenvs.create false && \
+    poetry run python -m compileall -q /$PYSETUP_PATH/keystone_scim
     
 
 # ------------------------

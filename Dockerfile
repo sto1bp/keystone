@@ -42,7 +42,7 @@ RUN set -x && \
     curl -sSL https://install.python-poetry.org | python3 - && \
     # poetry install --no-dev && \
     # poetry install --without dev && \
-    poetry install && \
+    # poetry install && \
     apk del --no-cache .build-deps
 
 # ------------------------
@@ -62,6 +62,10 @@ COPY --from=build $POETRY_HOME $POETRY_HOME
 COPY --from=build $PYSETUP_PATH $PYSETUP_PATH
 
 COPY ./keystone_scim /$PYSETUP_PATH/keystone_scim
+
+RUN poetry install --no-dev --no-root && \
+    poetry config virtualenvs.create false && \
+    poetry run python -m compileall -q /$PYSETUP_PATH/keystone_scim
 
 EXPOSE 5001
 CMD ["poetry", "run", "keystone-scim"]

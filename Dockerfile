@@ -35,6 +35,7 @@ RUN set -x && \
       curl \
       python3-dev \
       libffi-dev \
+      libpq-dev \
       # libressl-dev \
       musl-dev \
       lld \

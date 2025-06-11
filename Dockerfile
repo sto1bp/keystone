@@ -41,7 +41,8 @@ RUN set -x && \
       cargo && \
     curl -sSL https://install.python-poetry.org | python3 - && \
     # poetry install --no-dev && \
-    poetry install --without dev && \
+    # poetry install --without dev && \
+    poetry install && \
     apk del --no-cache .build-deps
 
 # ------------------------

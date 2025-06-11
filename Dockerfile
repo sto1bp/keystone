@@ -1,7 +1,7 @@
 # ------------------------
 # Python base stage:
 # ------------------------
-FROM python:3.10.14-alpine3.20 as base
+FROM python:3.12.10-alpine3.22 as base
 
 ENV PYTHONFAULTHANDLER=1 \
     PYTHONUNBUFFERED=1 \
@@ -19,7 +19,7 @@ FROM base as build
 ENV PIP_DEFAULT_TIMEOUT=100 \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
     PIP_NO_CACHE_DIR=1 \
-    POETRY_VERSION=1.8.3
+    POETRY_VERSION=2.1.3
 
 WORKDIR $PYSETUP_PATH
 COPY poetry.lock pyproject.toml ./
@@ -40,7 +40,8 @@ RUN set -x && \
       rust \
       cargo && \
     curl -sSL https://install.python-poetry.org | python3 - && \
-    poetry install --no-dev && \
+    # poetry install --no-dev && \
+    poetry install --without dev && \
     apk del --no-cache .build-deps
 
 # ------------------------

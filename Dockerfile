@@ -54,8 +54,7 @@ RUN set -x && \
 #     poetry run python -m compileall -q /$PYSETUP_PATH/keystone_scim
 
 RUN poetry config virtualenvs.create false && \
-    poetry lock && \
-    poetry install
+    poetry install --with dev
     
 
 # ------------------------

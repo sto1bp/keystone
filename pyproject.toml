@@ -1,12 +1,12 @@
 [tool.poetry]
-name = "keystone-scim"
+name = "keystonescim"
 version = "0.2.1"
 description = "A SCIM 2.0 Provisioning API"
 authors = ["Yuval Herziger <yherziger@microsoft.com>"]
 license = "MIT"
 
 [tool.poetry.scripts]
-keystone-scim = "keystone_scim.cmd:run"
+keystonescim = "keystonescim.cmd:run"
 
 [tool.poetry.dependencies]
 python = "^3.10"
